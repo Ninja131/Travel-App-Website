@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar"
 
 import {
   Carousel,
@@ -7,7 +7,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/Components/ui/carousel"
 import { PEOPLE_URL } from "@/constants";
 
 
@@ -76,41 +76,39 @@ const Camp = () => {
 
 export default Camp;
 
-const CampSite = ({imagee,title,location}) => {
-  return (
-    <div className="h-full w-full relative overflow-hidden rounded-2xl  flex flex-col justify-between px-5 py-7">
-      <Image
-        src={imagee}
-        fill
-        alt="image"
-        className="object-cover"
-      />
+import { StaticImageData } from "next/image";
 
-      <div className=" relative flex justify-start items-center gap-4  ">
+interface CampSiteProps {
+  imagee: string | StaticImageData;
+  title: string;
+  location: string;
+}
+
+const CampSite: React.FC<CampSiteProps> = ({ imagee, title, location }) => {
+  return (
+    <div className="h-full w-full relative overflow-hidden rounded-2xl flex flex-col justify-between px-5 py-7">
+      <Image src={imagee} fill alt={title} className="object-cover" />
+      <div className="relative flex justify-start items-center gap-4">
         <div className="p-5 rounded-full bg-green-500 flexCenter">
           <Image src="/folded-map.svg" width={24} height={24} alt="img" />
         </div>
-
         <div>
-          <h4 className="font-bold   text-white text-2xl ">{title}</h4>
+          <h4 className="font-bold text-white text-2xl">{title}</h4>
           <p className="text-white">{location}</p>
         </div>
       </div>
 
-      
-      <div className="relative flex justify-start item-center gap-6 d  ">
-           <div className="flex -space-x-3  ">
-          {PEOPLE_URL.map((data,index)=>(
-              <Avatar key={index}>
-              <AvatarImage src={data}alt="@shadcn" />
+      <div className="relative flex justify-start items-center gap-6">
+        <div className="flex -space-x-3">
+          {PEOPLE_URL.map((data, index) => (
+            <Avatar key={index}>
+              <AvatarImage src={data} alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
           ))}
-          </div>
-          <p className="text-xl font-bold text-white">50+ Joined</p>
+        </div>
+        <p className="text-xl font-bold text-white">50+ Joined</p>
       </div>
-       
     </div>
-    
   );
 };
